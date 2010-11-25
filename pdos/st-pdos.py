@@ -6,30 +6,32 @@ from xml.sax import handler, make_parser, saxutils
 
 ### Functions
 def normalize_whitespace( text ):
-    return string.strip( text )
+  return string.strip( text )
+# end def
 
 
-# class orbital
+### Classes
 class orbital:
-    def __init__( self ):
-	self.orbital_index = 0
-	self.atom_index = 0
-	self.species  = 'X'
-	self.position = [0.000, 0.000, 0.000]
-	self.nlmz = [0, 0, 0, 0]
-	self.dos = [[],[]]
-# end class orbital
+  def __init__( self ):
+    self.orbital_index = 0
+    self.atom_index = 0
+    self.species  = 'X'
+    self.position = [0.000, 0.000, 0.000]
+    self.nlmz = [0, 0, 0, 0]
+    self.dos = [[],[]]
+  # end def
+# end class
 
 
-# class pdosData
 class pdosData:
-    def __init__( self ):
-	self.nspin = 0
-	self.norbitals = 0
-	self.natoms = 0
-	self.energy_values = []
-	self.orbitals = []
-# end class pdosData
+  def __init__( self ):
+    self.nspin = 0
+    self.norbitals = 0
+    self.natoms = 0
+    self.energy_values = []
+    self.orbitals = []
+  # end def
+# end class
 
 
 # class pdosHandler
@@ -201,8 +203,9 @@ def pdoswrite( idx, data ):
     print "Found in: "+str(orbitals)
 
     for s in range(data.nspin):
+        spins = ['up','down']
 	total = []
-	output = "pdos_s_"+str(s)+"_a_"+str(idx)+".dat"
+	output = "pdos_spin_"+spins[s]+"_atom_"+str(idx)+".dat"
 	fp = open( output, "w")
     
 	fp.write( "%14s" % "Energy[eV]" )
@@ -252,7 +255,7 @@ def main():
     data    = pdosData()
 
     args = sys.argv[1:]
-    
+
     if len( args ) < 2:
         print "usage: "+sys.argv[0]+" input atomno"
         sys.exit( -1 )
